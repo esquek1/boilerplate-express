@@ -27,6 +27,17 @@ app.get("/", (req, res) => {
 // Challenge 4 - Serve Static Assets
 app.use("/public", express.static(__dirname + "/public"))
 
+// Challenge 7 - Implement a Root-Level Request Logger Middleware
+// https://www.freecodecamp.org/learn/back-end-development-and-apis/basic-node-and-express/implement-a-root-level-request-logger-middleware
+// middleware functions (3 args: request object, response object, next function in the apps req-res cycle)
+
+// NOTE: have middleware functions together, then the routes after
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.path} - ${req.ip}`);
+    next();
+})
+
+
 
 // Challenge 5 - Serve JSON on a Specific Route
 // https://www.freecodecamp.org/learn/back-end-development-and-apis/basic-node-and-express/serve-json-on-a-specific-route
@@ -36,7 +47,7 @@ app.use("/public", express.static(__dirname + "/public"))
 //     res.json({"message": "HELLO json"});
 // })
  
-// Challenge 6- Use the .env File
+// Challenge 6 - Use the .env File
 // https://www.freecodecamp.org/learn/back-end-development-and-apis/basic-node-and-express/use-the--env-file
 // Create .env file and add dotenv package 
 app.get("/json", (req, res) => {
@@ -44,5 +55,6 @@ app.get("/json", (req, res) => {
         "message": process.env.MESSAGE_STYLE === "uppercase" ? "HELLO JSON" : "Hello json"
     })
 })
+
 
 module.exports = app;
